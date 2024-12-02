@@ -35,7 +35,6 @@ public class ModSetup {
                         nbt.putInt("vidaAtual", instance.getLife());
                         nbt.putInt("energiaAtual", instance.getEnergy());
                         nbt.putInt("staminaAtual", instance.getStamina());
-                        LOGGER.info("writeNbt: {}", instance.getStr());
                         return nbt;
                     }
 
@@ -50,7 +49,6 @@ public class ModSetup {
                         instance.setLife(compoundNBT.getInt("vidaAtual"));
                         instance.setEnergy(compoundNBT.getInt("energiaAtual"));
                         instance.setStamina(compoundNBT.getInt("staminaAtual"));
-                        LOGGER.info("readNbt: {}", instance.getStr());
                     }
                 },
                 PlayerStats::new

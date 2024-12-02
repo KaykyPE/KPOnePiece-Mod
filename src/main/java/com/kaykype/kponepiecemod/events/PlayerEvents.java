@@ -42,7 +42,7 @@ import static com.kaykype.kponepiecemod.capabilities.PlayerStats.*;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class PlayerEvents {
-    @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+    @SubscribeEvent
     public static void onEvent(InputEvent.KeyInputEvent event) {
         PlayerEntity player = Minecraft.getInstance().player;
 
@@ -63,14 +63,15 @@ public class PlayerEvents {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             if (event.getAmount() > 0) {
-                PlayerStats.life -= event.getAmount();
-                event.setAmount(0.5f);
+                player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
+                    ModPacketHandler.sendToServer();
+                    event.setAmount(0.5f);
+                });
             }
         }
     }
-    */
+     */
 
-    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void disableHealthBar(RenderGameOverlayEvent event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH) {
@@ -87,32 +88,30 @@ public class PlayerEvents {
         player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
             GuiUtils.drawTexturedModalRect(10, 10, 0, 0, 230, 41, 0);
 
-            Minecraft mc = Minecraft.getInstance();
-
             int xPos = (9 + 40);
 
             int HealthBarWidth = 185;
             int HealthBarHeigth = 12;
             int yPos = (9 + 7);
 
-            float healthPercent = playerStats.getLife() / (playerStats.getCon() * 10);
+            float healthPercent = (float) playerStats.getLife() / (playerStats.getCon() * 10);
 
             int EnergyBarWidth = 143;
             int EnergyBarHeigth = 10;
             int yEnergyPos = (9 + 20);
 
-            float energyPercent = playerStats.getEnergy() / (playerStats.getSpi() * 10);
+            float energyPercent = (float) playerStats.getEnergy() / (playerStats.getSpi() * 10);
 
             int StaminaBarWidth = 72;
             int StaminaBarHeigth = 5;
             int yStaminaPos = (9 + 31);
 
-            float staminaPercent = playerStats.getStamina() / (playerStats.getCon() * 5);
+            float staminaPercent = (float) playerStats.getStamina() / (playerStats.getCon() * 5);
 
             RenderSystem.disableTexture();
-            AbstractGui.fill(event.getMatrixStack(), xPos, yPos, xPos + (int) (HealthBarWidth * healthPercent), yPos + HealthBarHeigth, 0xFFFF5555); // Vermelho
-            AbstractGui.fill(event.getMatrixStack(), xPos, yEnergyPos, xPos + (int) (EnergyBarWidth * energyPercent), yEnergyPos + EnergyBarHeigth, 0xFF4287F5); // Azul
-            AbstractGui.fill(event.getMatrixStack(), xPos, yStaminaPos, xPos + (int) (StaminaBarWidth * staminaPercent), yStaminaPos + StaminaBarHeigth, 0xFFFFF700); // Amarelo
+            AbstractGui.fill(event.getMatrixStack(), xPos, yPos, xPos + (int) (HealthBarWidth * healthPercent), yPos + HealthBarHeigth, 0xFFFF5555);
+            AbstractGui.fill(event.getMatrixStack(), xPos, yEnergyPos, xPos + (int) (EnergyBarWidth * energyPercent), yEnergyPos + EnergyBarHeigth, 0xFF4287F5);
+            AbstractGui.fill(event.getMatrixStack(), xPos, yStaminaPos, xPos + (int) (StaminaBarWidth * staminaPercent), yStaminaPos + StaminaBarHeigth, 0xFFFFF700);
             RenderSystem.enableTexture();
 
             ResourceLocation playerUITexture = new ResourceLocation("minecraft:textures/gui/icons.png");

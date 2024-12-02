@@ -41,6 +41,4 @@ public class CapManager implements ICapabilitySerializable<CompoundNBT>
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
         return cap == STATS ? statsOptional.cast() : LazyOptional.empty();
     }
-
-    private PlayerStats playerStats = stats;
 }
