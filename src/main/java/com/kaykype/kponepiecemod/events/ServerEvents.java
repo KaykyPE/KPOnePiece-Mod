@@ -28,35 +28,34 @@ import static com.kaykype.kponepiecemod.capabilities.PlayerStats.*;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class ServerEvents {
-    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (event.getPlayer().getCommandSenderWorld().isClientSide()) return;
+        if (((ServerPlayerEntity)event.getPlayer()).getCommandSenderWorld().isClientSide) return;
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
+            LOGGER.info("PlayerChangedDimensionEvent: {}", stats.getStr());
             ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
         });
     }
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        if (event.getPlayer().getCommandSenderWorld().isClientSide()) return;
+        if (((ServerPlayerEntity)event.getPlayer()).getCommandSenderWorld().isClientSide) return;
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
+            LOGGER.info("PlayerRespawnEvent: {}", stats.getStr());
             ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
         });
     }
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer().getCommandSenderWorld().isClientSide()) return;
+        if (((ServerPlayerEntity)event.getPlayer()).getCommandSenderWorld().isClientSide) return;
 
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
+            LOGGER.info("PlayerLoggedInEvent: {}", stats.getStr());
             ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
         });
     }
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
         if (!event.isWasDeath()) return;
@@ -70,8 +69,7 @@ public class ServerEvents {
                 newStats.setSpi(oldStats.getSpi());
                 newStats.setLife(oldStats.getLife());
                 newStats.setEnergy(oldStats.getEnergy());
-                newStats.setCon(oldStats.getCon());
-                ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(oldStats.getTp(), oldStats.getStr(), oldStats.getCon(), oldStats.getDex(), oldStats.getSpi(), oldStats.getLife(), oldStats.getEnergy(), oldStats.getStamina()));
+                newStats.setStamina(oldStats.getStamina());
             });
         });
     }

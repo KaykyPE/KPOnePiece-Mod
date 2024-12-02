@@ -78,14 +78,6 @@ public class PlayerEvents {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void tick(TickEvent.PlayerTickEvent e) {
-        e.player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-            e.player.sendMessage(new StringTextComponent(playerStats.getStr()+" Cliente"), e.player.getUUID());
-        });
-    }
-
     @SubscribeEvent
     public static void healthBar(RenderGameOverlayEvent.Post event) {
         Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Reference.MODID + ":textures/gui/icons.png"));
@@ -93,10 +85,6 @@ public class PlayerEvents {
         PlayerEntity player = Minecraft.getInstance().player;
 
         player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-            //int HealthBarWidth = (int) ((playerStats.getLife() / (playerStats.getCon() * 10)) * 185);
-            //int ChakraBarWidth = (int) ((playerStats.getEnergy() / (playerStats.getSpi() * 10)) * 143);
-            //int StaminaBarWidth = (int) ((playerStats.getStamina() / (playerStats.getCon() * 5)) * 74);
-
             GuiUtils.drawTexturedModalRect(10, 10, 0, 0, 230, 41, 0);
 
             Minecraft mc = Minecraft.getInstance();

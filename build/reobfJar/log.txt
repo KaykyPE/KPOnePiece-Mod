@@ -134,8 +134,6 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   com/kaykype/kponepiecemod/events/
   com/kaykype/kponepiecemod/events/PlayerEvents.class
   com/kaykype/kponepiecemod/events/ServerEvents.class
-  com/kaykype/kponepiecemod/handlers/
-  com/kaykype/kponepiecemod/handlers/eventHandler.class
   com/kaykype/kponepiecemod/proxy/
   com/kaykype/kponepiecemod/proxy/ClientProxy.class
   com/kaykype/kponepiecemod/proxy/ServerProxy.class

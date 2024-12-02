@@ -1,6 +1,8 @@
 package com.kaykype.kponepiecemod.capabilities;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -18,20 +20,18 @@ public class Packet {
     private int energiaAtual;
     private int staminaAtual;
 
-    public Packet(int pontos, int str, int con, int dex, int spi, int vidaAtual, int energiaAtual, int staminaAtual)
-    {
-        this.pontos=pontos;
-        this.forca=str;
-        this.resistencia=dex;
-        this.vida=con;
-        this.energia=spi;
-        this.vidaAtual=vidaAtual;
-        this.energiaAtual=energiaAtual;
-        this.staminaAtual=staminaAtual;
+    public Packet(int pontos, int str, int con, int dex, int spi, int vidaAtual, int energiaAtual, int staminaAtual) {
+        this.pontos = pontos;
+        this.forca = str;
+        this.resistencia = dex;
+        this.vida = con;
+        this.energia = spi;
+        this.vidaAtual = vidaAtual;
+        this.energiaAtual = energiaAtual;
+        this.staminaAtual = staminaAtual;
     }
 
-    public static void encode(Packet packet, PacketBuffer buffer)
-    {
+    public static void encode(Packet packet, PacketBuffer buffer) {
         buffer.writeInt(packet.pontos);
         buffer.writeInt(packet.forca);
         buffer.writeInt(packet.vida);
@@ -42,35 +42,55 @@ public class Packet {
         buffer.writeInt(packet.staminaAtual);
     }
 
-    public static Packet decode(PacketBuffer buffer)
-    {
+    public static Packet decode(PacketBuffer buffer) {
         return new Packet(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
     }
 
-    public static void handle(Packet packet, Supplier<NetworkEvent.Context> ctx)
-    {
-        ctx.get().enqueueWork(()-> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, ()->()->PacketHandler.handlePacket(packet, ctx)));
+    public static void handle(Packet packet, Supplier<NetworkEvent.Context> ctx) {
+        ctx.get().enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PacketHandler.handlePacket(packet, ctx)));
         ctx.get().setPacketHandled(true);
     }
 
-    private static class PacketHandler
-    {
-        private static void handlePacket(Packet packet, Supplier<NetworkEvent.Context> ctx)
-        {
-            ctx.get().getSender().getCapability(ModSetup.STATS).ifPresent
-                    (
-                            playerStats->
-                            {
-                                playerStats.setTp(packet.pontos);
-                                playerStats.setStr(packet.forca);
-                                playerStats.setCon(packet.vida);
-                                playerStats.setDex(packet.resistencia);
-                                playerStats.setSpi(packet.energia);
-                                playerStats.setLife(packet.vidaAtual);
-                                playerStats.setEnergy(packet.energiaAtual);
-                                playerStats.setStamina(packet.staminaAtual);
-                            }
-                    );
+    private static class PacketHandler {
+        private static void handlePacket(Packet packet, Supplier<NetworkEvent.Context> ctx) {
+            if (ctx.get().getDirection().getReceptionSide().isServer()) {
+                ServerPlayerEntity serverPlayer = ctx.get().getSender();
+                if (serverPlayer != null) {
+                    ctx.get().getSender().getCapability(ModSetup.STATS).ifPresent
+                            (
+                                    playerStats ->
+                                    {
+                                        playerStats.setTp(packet.pontos);
+                                        playerStats.setStr(packet.forca);
+                                        playerStats.setCon(packet.vida);
+                                        playerStats.setDex(packet.resistencia);
+                                        playerStats.setSpi(packet.energia);
+                                        playerStats.setLife(packet.vidaAtual);
+                                        playerStats.setEnergy(packet.energiaAtual);
+                                        playerStats.setStamina(packet.staminaAtual);
+                                        ModPacketHandler.sendToPlayer(serverPlayer, new Packet(packet.pontos, packet.forca, packet.vida, packet.resistencia, packet.energia, packet.vidaAtual, packet.energiaAtual, packet.staminaAtual));
+                                    }
+                            );
+                }
+            } else {
+                PlayerEntity clientPlayer = Minecraft.getInstance().player;
+                if (clientPlayer != null) {
+                    clientPlayer.getCapability(ModSetup.STATS).ifPresent
+                            (
+                                    playerStats ->
+                                    {
+                                        playerStats.setTp(packet.pontos);
+                                        playerStats.setStr(packet.forca);
+                                        playerStats.setCon(packet.vida);
+                                        playerStats.setDex(packet.resistencia);
+                                        playerStats.setSpi(packet.energia);
+                                        playerStats.setLife(packet.vidaAtual);
+                                        playerStats.setEnergy(packet.energiaAtual);
+                                        playerStats.setStamina(packet.staminaAtual);
+                                    }
+                            );
+                }
+            }
         }
     }
 }

@@ -106,19 +106,19 @@ public class GuiStats extends Screen {
         }
         if (buttonDex.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                playerStats.setDex(playerStats.getDex() + 1);
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex()+1, playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
             });
             return true;
         }
         if (buttonCon.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                playerStats.setCon(playerStats.getCon() + 1);
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon()+1, playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
             });
             return true;
         }
         if (buttonSpi.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                playerStats.setSpi(playerStats.getSpi() + 1);
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex(), playerStats.getSpi()+1, playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
             });
             return true;
         }
