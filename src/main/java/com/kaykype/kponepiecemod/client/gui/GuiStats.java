@@ -99,11 +99,7 @@ public class GuiStats extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (buttonStr.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                playerStats.setStr(playerStats.getStr() + 1);
-            });
-
-            player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr()+1, playerStats.getCon(), playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
             });
 
             return true;
@@ -244,9 +240,6 @@ public class GuiStats extends Screen {
      */
     @Override
     public void onClose() {
-        player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-            ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
-        });
     }
 
     @Override

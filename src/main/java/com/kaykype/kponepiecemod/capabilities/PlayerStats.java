@@ -3,109 +3,103 @@ package com.kaykype.kponepiecemod.capabilities;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
 public class PlayerStats implements IPlayerStats {
-    private int tp;
-    private int str;
-    private int dex;
-    private int con;
-    private int spi;
-    private int life;
-    private int energy;
-    private int stamina;
+    private int pontos;
+    private int forca;
+    private int resistencia;
+    private int vida;
+    private int energia;
+    private int vidaAtual;
+    private int energiaAtual;
+    private int staminaAtual;
 
     public PlayerStats () {
-        tp  = 0;
-        str = 10;
-        dex = 10;
-        spi = 10;
-        con = 10;
-        life = 100;
-        energy = 100;
-        stamina = 50;
+        pontos  = 0;
+        forca = 10;
+        resistencia = 10;
+        vida = 10;
+        energia = 10;
+        vidaAtual = 100;
+        energiaAtual = 100;
+        staminaAtual = 50;
     }
 
     @Override
     public int getStr() {
-        return str;
+        return forca;
     }
 
     @Override
     public void setStr(int value) {
-        this.str = value;
+        this.forca = value;
     }
 
     @Override
     public int getTp() {
-        return tp;
+        return pontos;
     }
 
     @Override
     public void setTp(int value) {
-        this.tp = value;
+        this.pontos = value;
     }
 
     @Override
     public int getCon() {
-        return con;
+        return vida;
     }
 
     @Override
     public void setCon(int value) {
-        this.con = value;
+        this.vida = value;
     }
 
     @Override
     public int getDex() {
-        return dex;
+        return resistencia;
     }
 
     @Override
     public void setDex(int value) {
-        this.dex = value;
+        this.resistencia = value;
     }
 
     @Override
     public int getSpi() {
-        return spi;
+        return energia;
     }
 
     @Override
     public void setSpi(int value) {
-        this.spi = value;
+        this.energia = value;
     }
 
     @Override
     public int getLife() {
-        return life;
+        return vidaAtual;
     }
 
     @Override
     public void setLife(int value) {
-        this.life = value;
+        this.vidaAtual = value;
     }
 
     @Override
     public int getEnergy() {
-        return energy;
+        return energiaAtual;
     }
 
     @Override
     public void setEnergy(int value) {
-        this.energy = value;
+        this.energiaAtual = value;
     }
 
     @Override
     public int getStamina() {
-        return stamina;
+        return staminaAtual;
     }
 
     @Override
     public void setStamina(int value) {
-        this.stamina = value;
-    }
-
-    @Override
-    public void update(ServerPlayerEntity player)
-    {
-        ModPacketHandler.sendToPlayer(player, new Packet(this.getTp(), this.getStr(), this.getCon(), this.getDex(), this.getSpi(), this.getLife(), this.getEnergy(), this.getStamina()));
+        this.staminaAtual = value;
     }
 }

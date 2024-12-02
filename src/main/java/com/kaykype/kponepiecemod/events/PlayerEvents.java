@@ -6,6 +6,7 @@ import com.kaykype.kponepiecemod.client.gui.GuiStats;
 import com.kaykype.kponepiecemod.proxy.ClientProxy;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import javafx.geometry.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.AbstractGui;
@@ -24,6 +25,7 @@ import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -33,21 +35,13 @@ import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import static com.kaykype.kponepiecemod.KPOnePieceMod.LOGGER;
 import static com.kaykype.kponepiecemod.capabilities.PlayerStats.*;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class PlayerEvents {
-    @SubscribeEvent
-    public static void AttachCap(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof PlayerEntity) {
-            CapManager provider = new CapManager();
-            event.addCapability(new ResourceLocation(Reference.MODID, "player_attributes"), provider);
-            event.addListener(provider::invalidate);
-        }
-    }
-
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public static void onEvent(InputEvent.KeyInputEvent event) {
         PlayerEntity player = Minecraft.getInstance().player;
@@ -85,6 +79,13 @@ public class PlayerEvents {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void tick(TickEvent.PlayerTickEvent e) {
+        e.player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
+            e.player.sendMessage(new StringTextComponent(playerStats.getStr()+" Cliente"), e.player.getUUID());
+        });
+    }
+
     @SubscribeEvent
     public static void healthBar(RenderGameOverlayEvent.Post event) {
         Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Reference.MODID + ":textures/gui/icons.png"));

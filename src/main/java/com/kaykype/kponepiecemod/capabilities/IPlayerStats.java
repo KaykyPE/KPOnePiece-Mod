@@ -22,5 +22,4 @@ public interface IPlayerStats {
     void setLife(int life);
     void setEnergy(int energy);
     void setStamina(int stamina);
-    void update(ServerPlayerEntity player);
 }

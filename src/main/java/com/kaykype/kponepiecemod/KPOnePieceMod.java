@@ -5,13 +5,15 @@ import com.kaykype.kponepiecemod.capabilities.ModPacketHandler;
 import com.kaykype.kponepiecemod.capabilities.ModSetup;
 import com.kaykype.kponepiecemod.events.PlayerEvents;
 import com.kaykype.kponepiecemod.events.ServerEvents;
-import com.kaykype.kponepiecemod.handlers.eventHandler;
 import com.kaykype.kponepiecemod.proxy.ClientProxy;
 import com.kaykype.kponepiecemod.proxy.ServerProxy;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,8 +39,14 @@ public class KPOnePieceMod {
         modEventBus.addListener(this::setupClient);
         modEventBus.addListener(this::setupCommon);
         modEventBus.addListener(this::setupDedicatedServer);
+    }
 
-        MinecraftForge.EVENT_BUS.register(new ServerEvents());
+    @SubscribeEvent
+    void AttachCap(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof PlayerEntity) {
+            CapManager provider = new CapManager();
+            event.addCapability(new ResourceLocation(Reference.MODID, "player_attributes"), provider);
+        }
     }
 
     private void setupClient(final FMLClientSetupEvent event) {
@@ -47,11 +55,12 @@ public class KPOnePieceMod {
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
-        ModPacketHandler.register();
         ModSetup.reg();
+        ModPacketHandler.register();
     }
 
     private void setupDedicatedServer(final FMLDedicatedServerSetupEvent event) {
+        MinecraftForge.EVENT_BUS.register(new ServerEvents());
         new ServerProxy();
     }
 }

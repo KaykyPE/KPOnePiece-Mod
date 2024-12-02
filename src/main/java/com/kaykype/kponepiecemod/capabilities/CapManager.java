@@ -10,6 +10,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.loading.FMLCommonLaunchHandler;
 import org.apache.logging.log4j.LogManager;
 
 import javax.annotation.Nonnull;
@@ -23,16 +24,9 @@ public class CapManager implements ICapabilitySerializable<CompoundNBT>
     private final PlayerStats stats=new PlayerStats();
     private final LazyOptional<IPlayerStats> statsOptional=LazyOptional.of(()->this.stats);
 
-    public void invalidate()
-    {
-        this.statsOptional.invalidate();
-    }
-
     @Override
     public CompoundNBT serializeNBT()
     {
-        LogManager.getLogger().info(stats);
-        LogManager.getLogger().info(STATS);
         if(STATS==null) return new CompoundNBT();
         else return (CompoundNBT) STATS.writeNBT(this.stats, null);
     }
@@ -40,14 +34,11 @@ public class CapManager implements ICapabilitySerializable<CompoundNBT>
     @Override
     public void deserializeNBT(CompoundNBT nbt)
     {
-        LogManager.getLogger().info(stats);
-        LogManager.getLogger().info(STATS);
         if(STATS!=null) STATS.readNBT(this.stats, null, nbt);
     }
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        LogManager.getLogger().info(STATS);
         return cap == STATS ? statsOptional.cast() : LazyOptional.empty();
     }
 
