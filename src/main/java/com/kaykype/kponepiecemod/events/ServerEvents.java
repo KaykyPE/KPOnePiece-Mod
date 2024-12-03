@@ -32,7 +32,6 @@ public class ServerEvents {
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getPlayer().getCommandSenderWorld().isClientSide) return;
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
-            LOGGER.info("PlayerChangedDimensionEvent: {}", stats.getStr());
             ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
         });
     }
@@ -41,7 +40,6 @@ public class ServerEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getPlayer().getCommandSenderWorld().isClientSide) return;
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
-            LOGGER.info("PlayerRespawnEvent: {}", stats.getStr());
             ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
         });
     }
@@ -51,7 +49,6 @@ public class ServerEvents {
         if (event.getPlayer().getCommandSenderWorld().isClientSide) return;
 
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
-            LOGGER.info("PlayerLoggedInEvent: {}", stats.getStr());
             ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
         });
     }

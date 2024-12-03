@@ -137,4 +137,6 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   com/kaykype/kponepiecemod/proxy/
   com/kaykype/kponepiecemod/proxy/ClientProxy.class
   com/kaykype/kponepiecemod/proxy/ServerProxy.class
+  com/kaykype/kponepiecemod/utils/
+  com/kaykype/kponepiecemod/utils/AttributesManagement.class
   pack.mcmeta

@@ -53,17 +53,17 @@ public class GuiStats extends Screen {
         super(new StringTextComponent("Stats Menu"));
         this.player = p;
         player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-            this.textStr = "" + playerStats.getStr();
-            this.textDex = "" + playerStats.getDex();
-            this.textCon = "" + playerStats.getCon();
-            this.textSpi = "" + playerStats.getSpi();
-            this.textTpLabel = "Pontos";
+            this.textStr = "STR "+playerStats.getStr();
+            this.textDex = "DEX "+playerStats.getDex();
+            this.textCon = playerStats.getCon()+" CON";
+            this.textSpi = playerStats.getSpi()+" SPI";
+            this.textTpLabel = "Pontos: ";
             this.textTp = "" + playerStats.getTp();
         });
-        this.xStr = 60.0F;
-        this.xDex = 60.0F;
-        this.xCon = 60.0F;
-        this.xSpi = 60.0F;
+        this.xStr = 49.0F;
+        this.xDex = 49.0F;
+        this.xCon = 49.0F;
+        this.xSpi = 49.0F;
         this.xTp = 0.0F;
     }
 
@@ -72,19 +72,19 @@ public class GuiStats extends Screen {
         buttons.clear();
         Minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(true);
 
-        int offsetFromScreenLeft = (width) / 2;
-        int offsetFromScreenTop = (height) / 2;
+        int offsetFromScreenLeft = width / 2;
+        int offsetFromScreenTop = height / 2;
 
-        buttons.add(buttonStr = new addButton(offsetFromScreenLeft - 46, offsetFromScreenTop - 70, 11, 11, "", button -> {
+        buttons.add(buttonStr = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop, 13, 13, "", button -> {
         }));
 
-        buttons.add(buttonDex = new addButton(offsetFromScreenLeft - 46, offsetFromScreenTop + 10, 11, 11, "", button -> {
+        buttons.add(buttonDex = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 15, 13, 13, "", button -> {
         }));
 
-        buttons.add(buttonCon = new addButton(offsetFromScreenLeft + 46, offsetFromScreenTop - 70, 11, 11, "", button -> {
+        buttons.add(buttonCon = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 30, 13, 13, "", button -> {
         }));
 
-        buttons.add(buttonSpi = new addButton(offsetFromScreenLeft + 46, offsetFromScreenTop + 10, 11, 11, "", button -> {
+        buttons.add(buttonSpi = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 45, 13, 13, "", button -> {
         }));
         buttonStr.visible = true;
 
@@ -131,15 +131,16 @@ public class GuiStats extends Screen {
     @Override
     public void tick() {
         player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-            textStr = playerStats.getStr() + " STR";
-            textDex = playerStats.getDex() + " DEX";
-            textCon = "CON " + playerStats.getCon();
-            textSpi = "SPI " + playerStats.getSpi();
-            textTp = "" + playerStats.getTp();
+            textStr = "STR "+ playerStats.getStr();
+            textDex = "DEX "+playerStats.getDex();
+            textCon = "CON "+playerStats.getCon() ;
+            textSpi = "SPI "+playerStats.getSpi();
 
-            xStr = 49 + mc.font.width(textStr);
-            xDex = 49 + mc.font.width(textDex);
-            int offsetFromScreenLeft = (width) / 2;
+            xStr = 25 + mc.font.width(textStr);
+            xDex = 25 + mc.font.width(textDex);
+            xCon = 25 - mc.font.width(textCon);
+            xSpi = 25 - mc.font.width(textSpi);
+            int offsetFromScreenLeft = width / 2;
             xTp = offsetFromScreenLeft + (mc.font.width(textTp) / 2);
         });
     }
@@ -150,64 +151,72 @@ public class GuiStats extends Screen {
 
     @Override
     public void render(MatrixStack matrixStack, int parWidth, int parHeight, float p_73863_3_) {
-        int offsetFromScreenLeft = (width) / 2;
-        int offsetFromScreenTop = (height) / 2;
+        int offsetFromScreenLeft = width / 2;
+        int offsetFromScreenTop = height / 2;
 
-        mc.getTextureManager().bind(new ResourceLocation(Reference.MODID, "textures/gui/container/menu1.png"));
+        fill(matrixStack, 0, 0, width, height, 0x8F000000);
 
-        blit(matrixStack, offsetFromScreenLeft - (243/2), offsetFromScreenTop - (169/2), 0, 0, 243, 169);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        mc.getTextureManager().bind(new ResourceLocation(Reference.MODID, "textures/gui/container/menu.png"));
+        blit(matrixStack, offsetFromScreenLeft-200, offsetFromScreenTop - (165/2), 0, 0, 128, 165);
+        blit(matrixStack, offsetFromScreenLeft-200, offsetFromScreenTop - 115, 0, 167, 128, 23);
+
+        RenderSystem.disableBlend();
 
         font.drawShadow(matrixStack, textStr,
-                (offsetFromScreenLeft - xStr),
-                offsetFromScreenTop - 69, 0xFFFFFF);
+                (offsetFromScreenLeft-150),
+                offsetFromScreenTop+5, 0xFFFFFF);
         font.drawShadow(matrixStack, textDex,
-                (offsetFromScreenLeft - xDex),
-                offsetFromScreenTop + 12, 0xFFFFFF);
+                (offsetFromScreenLeft - 150),
+                (offsetFromScreenTop + 20), 0xFFFFFF);
         font.drawShadow(matrixStack, textCon,
-                (offsetFromScreenLeft + xCon),
-                (offsetFromScreenTop - 69), 0xFFFFFF);
+                (offsetFromScreenLeft - 150),
+                (offsetFromScreenTop + 35), 0xFFFFFF);
         font.drawShadow(matrixStack, textSpi,
-                (offsetFromScreenLeft + xSpi),
-                offsetFromScreenTop + 12, 0xFFFFFF);
+                (offsetFromScreenLeft - 150),
+                (offsetFromScreenTop + 50), 0xFFFFFF);
+        font.drawShadow(matrixStack, "Seus atributos",
+                ((offsetFromScreenLeft - 200) - (mc.font.width("Seus atributos")/2)) + 64,
+                ((offsetFromScreenTop - 115) - font.lineHeight/2) + 11, 0xFFFFFF);
+        /*
         font.drawShadow(matrixStack, textTpLabel,
-                (offsetFromScreenLeft - 12),
-                (offsetFromScreenTop - 125), 0xFFFFFF);
+                (offsetFromScreenLeft),
+                (offsetFromScreenTop - 70), 0x808080);
+         */
         font.drawShadow(matrixStack, textTp,
                 xTp,
-                (offsetFromScreenTop - 110), 0xFFFFFF);
+                (offsetFromScreenTop - 60), 0xFFFFFF);
         /*
         GlStateManager.translate(offsetFromScreenLeft+128, offsetFromScreenTop+20, 10);
         RenderPlayer playerModel = new RenderPlayer(Minecraft.getMinecraft().getRenderManager());
-        playerModel.bindTexture(((EntityPlayerSP) player).getLocationSkin());
+        playerModel.bindTexture(((EntityPlayer SP) player).getLocationSkin());
         playerModel.getMainModel().render(player, 0, 0, 0, 0, 0, 6f);
         */
 
-        /*
-        int l = offsetFromScreenLeft;
-        int i1 = offsetFromScreenTop;
+        float f1 = 90.0F / (float) player.getBoundingBox().getYsize();
+
+        int l = offsetFromScreenLeft+160;
+        int i1 = offsetFromScreenTop+(int)(f1/2);
 
         Minecraft mc = Minecraft.getInstance();
-
-        float f1 = 90.0F / (float) player.getBbHeight();
 
         matrixStack.pushPose();
         matrixStack.translate(l, i1, 50f);
 
-        float originalBodyRot = player.yBodyRot;
-        float originalYaw = player.yRot;
-        float originalPitch = player.xRot;
-        float originalHeadRot = player.yHeadRot;
-
-        float diffX = (float) (l) - (float) parWidth;
-        float diffY = (float) (i1) - (float) parHeight;
-
-        player.yBodyRot = (float) Math.atan((double) (diffX / 40.0F)) * 20.0F;
-        player.yRot = (float) Math.atan((double) (diffX / 40.0F)) * 40.0F;
-        player.xRot = -((float) Math.atan((double) (diffY / 40.0F))) * 20.0F;
-        player.yHeadRot = player.yRot;
-
-        matrixStack.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
         matrixStack.scale(-f1, f1, f1);
+
+        float yRot = player.yRot;
+        float xRot = player.xRot;
+        float yBodyRot = player.yBodyRot;
+        float headRot = player.yHeadRot;
+
+        player.yRot = 30f;
+        player.yBodyRot = 30f;
+        player.xRot = 0;
+        player.yHeadRot = 30f;
+        matrixStack.mulPose(Vector3f.ZP.rotationDegrees(180f));
 
         EntityRendererManager renderManager = mc.getEntityRenderDispatcher();
 
@@ -225,11 +234,10 @@ public class GuiStats extends Screen {
 
         matrixStack.popPose();
 
-        player.yBodyRot = originalBodyRot;
-        player.yRot = originalYaw;
-        player.xRot = originalPitch;
-        player.yHeadRot = originalHeadRot;
-         */
+        player.yRot = yRot;
+        player.xRot = xRot;
+        player.yBodyRot = yBodyRot;
+        player.yHeadRot = headRot;
 
         super.render(matrixStack, parWidth, parHeight, p_73863_3_);
     }

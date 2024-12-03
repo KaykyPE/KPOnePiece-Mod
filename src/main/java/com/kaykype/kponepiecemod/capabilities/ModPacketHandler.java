@@ -28,7 +28,9 @@ public class ModPacketHandler {
     }
 
     public static void sendToPlayer(ServerPlayerEntity player, Object packet) {
-        CHANNEL.sendTo(packet, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+        if (player.connection != null && player.connection.getConnection() != null) {
+            CHANNEL.sendTo(packet, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+        }
     }
 
     public static void sendToServer(Object packet) {
