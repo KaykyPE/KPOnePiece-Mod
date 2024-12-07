@@ -3,6 +3,7 @@ package com.kaykype.kponepiecemod.events;
 import com.kaykype.kponepiecemod.Reference;
 import com.kaykype.kponepiecemod.capabilities.*;
 import com.kaykype.kponepiecemod.client.gui.GuiStats;
+import com.kaykype.kponepiecemod.client.races.RaceMetods;
 import com.kaykype.kponepiecemod.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -23,7 +24,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.kaykype.kponepiecemod.KPOnePieceMod.LOGGER;
+import java.util.Arrays;
+
 import static com.kaykype.kponepiecemod.capabilities.PlayerStats.*;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
@@ -32,7 +34,8 @@ public class ServerEvents {
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getPlayer().getCommandSenderWorld().isClientSide) return;
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
-            ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
+
+            ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina(), stats.getRace(), stats.getCargo()));
         });
     }
 
@@ -40,7 +43,8 @@ public class ServerEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getPlayer().getCommandSenderWorld().isClientSide) return;
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
-            ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
+
+            ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina(), stats.getRace(), stats.getCargo()));
         });
     }
 
@@ -49,7 +53,7 @@ public class ServerEvents {
         if (event.getPlayer().getCommandSenderWorld().isClientSide) return;
 
         event.getPlayer().getCapability(ModSetup.STATS).ifPresent(stats -> {
-            ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina()));
+            ModPacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new Packet(stats.getTp(), stats.getStr(), stats.getCon(), stats.getDex(), stats.getSpi(), stats.getLife(), stats.getEnergy(), stats.getStamina(), stats.getRace(), stats.getCargo()));
         });
     }
 
@@ -59,6 +63,7 @@ public class ServerEvents {
 
         event.getOriginal().getCapability(ModSetup.STATS).ifPresent(oldStats -> {
             event.getPlayer().getCapability(ModSetup.STATS).ifPresent(newStats -> {
+
                 newStats.setStr(oldStats.getStr());
                 newStats.setTp(oldStats.getTp());
                 newStats.setCon(oldStats.getCon());
@@ -67,6 +72,8 @@ public class ServerEvents {
                 newStats.setLife(oldStats.getLife());
                 newStats.setEnergy(oldStats.getEnergy());
                 newStats.setStamina(oldStats.getStamina());
+                newStats.setRace(oldStats.getRace());
+                newStats.setCargo(oldStats.getCargo());
             });
         });
     }

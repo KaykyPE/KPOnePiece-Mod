@@ -86,6 +86,22 @@ Reading Input: C:\Users\playe\Documents\KPOnePiece Mod\build\libs\kponepiece_mod
 Adding input to inheritance map
 Processing entries
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/addButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/attributesButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/doneButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/nextButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/previousButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/skillsButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/attributesButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/buttonMaestrias/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/trainingButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/skillsButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/keyPressed(III)Z from net/minecraft/client/gui/screen/Screen/keyPressed(III)Z: keyPressed -> func_231046_a_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/isPauseScreen()Z from net/minecraft/client/gui/screen/Screen/isPauseScreen()Z: isPauseScreen -> func_231177_au__
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/onClose()V from net/minecraft/client/gui/screen/Screen/onClose()V: onClose -> func_231175_as__
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/init()V from net/minecraft/client/gui/screen/Screen/init()V: init -> func_231160_c_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/mouseClicked(DDI)Z from net/minecraft/client/gui/INestedGuiEventHandler/mouseClicked(DDI)Z: mouseClicked -> func_231044_a_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/tick()V from net/minecraft/client/gui/screen/Screen/tick()V: tick -> func_231023_e_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/render(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/screen/Screen/render(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: render -> func_230430_a_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats/keyPressed(III)Z from net/minecraft/client/gui/screen/Screen/keyPressed(III)Z: keyPressed -> func_231046_a_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats/isPauseScreen()Z from net/minecraft/client/gui/screen/Screen/isPauseScreen()Z: isPauseScreen -> func_231177_au__
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats/onClose()V from net/minecraft/client/gui/screen/Screen/onClose()V: onClose -> func_231175_as__
@@ -129,9 +145,29 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   com/kaykype/kponepiecemod/client/
   com/kaykype/kponepiecemod/client/gui/
   com/kaykype/kponepiecemod/client/gui/Buttons/
+  com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/
+  com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/attributesButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/buttonMaestrias.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/skillsButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/trainingButton.class
   com/kaykype/kponepiecemod/client/gui/Buttons/addButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/
+  com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/attributesButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/doneButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/nextButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/previousButton.class
+  com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/skillsButton.class
+  com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter.class
   com/kaykype/kponepiecemod/client/gui/GuiStats.class
+  com/kaykype/kponepiecemod/client/races/
+  com/kaykype/kponepiecemod/client/races/RaceMetods.class
+  com/kaykype/kponepiecemod/client/races/fishmanRace.class
+  com/kaykype/kponepiecemod/client/races/giantRace.class
+  com/kaykype/kponepiecemod/client/races/humanRace.class
+  com/kaykype/kponepiecemod/client/races/minkRace.class
+  com/kaykype/kponepiecemod/client/races/raceHandler.class
   com/kaykype/kponepiecemod/events/
+  com/kaykype/kponepiecemod/events/AllEvents.class
   com/kaykype/kponepiecemod/events/PlayerEvents.class
   com/kaykype/kponepiecemod/events/ServerEvents.class
   com/kaykype/kponepiecemod/proxy/

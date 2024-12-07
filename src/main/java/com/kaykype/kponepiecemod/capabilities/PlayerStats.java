@@ -1,5 +1,7 @@
 package com.kaykype.kponepiecemod.capabilities;
 
+import com.kaykype.kponepiecemod.client.races.raceHandler;
+import com.kaykype.kponepiecemod.utils.AttributesManagement;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
 public class PlayerStats implements IPlayerStats {
@@ -11,21 +13,45 @@ public class PlayerStats implements IPlayerStats {
     private int vidaAtual;
     private int energiaAtual;
     private int staminaAtual;
+    private String raça;
+    private String cargo;
 
-    public PlayerStats () {
-        pontos  = 0;
+    public PlayerStats() {
+        raça = "empty";
+        cargo = "empty";
+        pontos = 0;
         forca = 10;
         resistencia = 10;
         vida = 10;
         energia = 10;
-        vidaAtual = 100;
-        energiaAtual = 100;
-        staminaAtual = 50;
+        vidaAtual = AttributesManagement.getMaxLife(10, "empty");
+        energiaAtual = AttributesManagement.getMaxEnergy(10, "empty");
+        staminaAtual = AttributesManagement.getMaxStamina(10, "empty");
     }
 
     @Override
     public int getStr() {
         return forca;
+    }
+
+    @Override
+    public String getRace() {
+        return raça;
+    }
+
+    @Override
+    public void setRace(String raça) {
+        this.raça = raça;
+    }
+
+    @Override
+    public String getCargo() {
+        return cargo;
+    }
+
+    @Override
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     @Override

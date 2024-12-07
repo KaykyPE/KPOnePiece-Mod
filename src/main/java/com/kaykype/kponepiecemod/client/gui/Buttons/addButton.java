@@ -15,8 +15,6 @@ import static net.minecraftforge.fml.client.gui.GuiUtils.drawTexturedModalRect;
 public class addButton extends Button {
     private static final Minecraft mc = Minecraft.getInstance();
 
-    private static ResourceLocation ButtonsTexture = new ResourceLocation(Reference.MODID+":textures/gui/button1.png");
-
     public addButton (int x, int y, int width, int height, String text, IPressable onPress) {
         super(x, y, width, height, new StringTextComponent(text), onPress);
     }

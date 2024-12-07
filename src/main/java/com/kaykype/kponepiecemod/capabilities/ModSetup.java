@@ -14,8 +14,6 @@ import org.apache.logging.log4j.LogManager;
 
 import javax.annotation.Nullable;
 
-import static com.kaykype.kponepiecemod.KPOnePieceMod.LOGGER;
-
 public class ModSetup {
     @CapabilityInject(IPlayerStats.class)
     public static Capability<IPlayerStats> STATS = null;
@@ -35,6 +33,8 @@ public class ModSetup {
                         nbt.putInt("vidaAtual", instance.getLife());
                         nbt.putInt("energiaAtual", instance.getEnergy());
                         nbt.putInt("staminaAtual", instance.getStamina());
+                        nbt.putString("raça", instance.getRace());
+                        nbt.putString("cargo", instance.getCargo());
                         return nbt;
                     }
 
@@ -49,6 +49,8 @@ public class ModSetup {
                         instance.setLife(compoundNBT.getInt("vidaAtual"));
                         instance.setEnergy(compoundNBT.getInt("energiaAtual"));
                         instance.setStamina(compoundNBT.getInt("staminaAtual"));
+                        instance.setRace(compoundNBT.getString("raça"));
+                        instance.setCargo(compoundNBT.getString("cargo"));
                     }
                 },
                 PlayerStats::new

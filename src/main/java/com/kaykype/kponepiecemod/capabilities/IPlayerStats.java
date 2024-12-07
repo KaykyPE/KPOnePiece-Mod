@@ -1,5 +1,6 @@
 package com.kaykype.kponepiecemod.capabilities;
 
+import com.kaykype.kponepiecemod.client.races.raceHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
@@ -12,6 +13,8 @@ public interface IPlayerStats {
     int getLife();
     int getEnergy();
     int getStamina();
+    String getRace();
+    String getCargo();
 
     void setTp(int tp);
     void setStr(int str);
@@ -22,4 +25,6 @@ public interface IPlayerStats {
     void setLife(int life);
     void setEnergy(int energy);
     void setStamina(int stamina);
+    void setRace(String race);
+    void setCargo(String race);
 }

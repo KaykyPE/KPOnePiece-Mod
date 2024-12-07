@@ -19,8 +19,11 @@ public class Packet {
     private int vidaAtual;
     private int energiaAtual;
     private int staminaAtual;
+    private String raça;
+    private String cargo;
 
-    public Packet(int pontos, int str, int con, int dex, int spi, int vidaAtual, int energiaAtual, int staminaAtual) {
+
+    public Packet(int pontos, int str, int con, int dex, int spi, int vidaAtual, int energiaAtual, int staminaAtual, String raça, String cargo) {
         this.pontos = pontos;
         this.forca = str;
         this.resistencia = dex;
@@ -29,6 +32,8 @@ public class Packet {
         this.vidaAtual = vidaAtual;
         this.energiaAtual = energiaAtual;
         this.staminaAtual = staminaAtual;
+        this.raça = cargo;
+        this.cargo = raça;
     }
 
     public static void encode(Packet packet, PacketBuffer buffer) {
@@ -40,10 +45,12 @@ public class Packet {
         buffer.writeInt(packet.vidaAtual);
         buffer.writeInt(packet.energiaAtual);
         buffer.writeInt(packet.staminaAtual);
+        buffer.writeUtf(packet.raça);
+        buffer.writeUtf(packet.cargo);
     }
 
     public static Packet decode(PacketBuffer buffer) {
-        return new Packet(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
+        return new Packet(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readUtf(), buffer.readUtf());
     }
 
     public static void handle(Packet packet, Supplier<NetworkEvent.Context> ctx) {
@@ -68,7 +75,9 @@ public class Packet {
                                         playerStats.setLife(packet.vidaAtual);
                                         playerStats.setEnergy(packet.energiaAtual);
                                         playerStats.setStamina(packet.staminaAtual);
-                                        ModPacketHandler.sendToPlayer(serverPlayer, new Packet(packet.pontos, packet.forca, packet.vida, packet.resistencia, packet.energia, packet.vidaAtual, packet.energiaAtual, packet.staminaAtual));
+                                        playerStats.setRace(packet.raça);
+                                        playerStats.setCargo(packet.cargo);
+                                        ModPacketHandler.sendToPlayer(serverPlayer, new Packet(packet.pontos, packet.forca, packet.vida, packet.resistencia, packet.energia, packet.vidaAtual, packet.energiaAtual, packet.staminaAtual, packet.raça, packet.cargo));
                                     }
                             );
                 }
@@ -87,6 +96,8 @@ public class Packet {
                                         playerStats.setLife(packet.vidaAtual);
                                         playerStats.setEnergy(packet.energiaAtual);
                                         playerStats.setStamina(packet.staminaAtual);
+                                        playerStats.setRace(packet.raça);
+                                        playerStats.setCargo(packet.cargo);
                                     }
                             );
                 }

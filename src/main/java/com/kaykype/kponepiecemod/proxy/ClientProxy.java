@@ -25,17 +25,13 @@ public class ClientProxy {
 		registerKeyBindings();
 	}
 
-	public static final KeyBinding HELLO_KEY = new KeyBinding(
+	public static final KeyBinding STATS_BUTTON = new KeyBinding(
 			"key.statsui",
 			GLFW.GLFW_KEY_V,
 			"key.categories.kponepiecemod"
 	);
 
 	public static void registerKeyBindings() {
-		ClientRegistry.registerKeyBinding(HELLO_KEY);
-	}
-
-	public static void openGuiStats(PlayerEntity player) {
-		Minecraft.getInstance().setScreen(new GuiStats(player));
+		ClientRegistry.registerKeyBinding(STATS_BUTTON);
 	}
 }

@@ -5,6 +5,9 @@ import com.kaykype.kponepiecemod.capabilities.CapManager;
 import com.kaykype.kponepiecemod.capabilities.ModPacketHandler;
 import com.kaykype.kponepiecemod.capabilities.ModSetup;
 import com.kaykype.kponepiecemod.capabilities.Packet;
+import com.kaykype.kponepiecemod.client.gui.Buttons.NavBar.attributesButton;
+import com.kaykype.kponepiecemod.client.gui.Buttons.NavBar.skillsButton;
+import com.kaykype.kponepiecemod.client.gui.Buttons.NavBar.trainingButton;
 import com.kaykype.kponepiecemod.client.gui.Buttons.addButton;
 import com.kaykype.kponepiecemod.proxy.ServerProxy;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -41,6 +44,11 @@ public class GuiStats extends Screen {
     private Button buttonCon;
     private Button buttonSpi;
 
+    private Button buttonAtributos;
+    private Button buttonSkills;
+    private Button buttonTreinos;
+    private Button buttonMaestrias;
+
     PlayerEntity player;
 
     float xStr;
@@ -75,16 +83,30 @@ public class GuiStats extends Screen {
         int offsetFromScreenLeft = width / 2;
         int offsetFromScreenTop = height / 2;
 
+        //NavBar
+        buttons.add(buttonAtributos = new attributesButton((offsetFromScreenLeft - 146)-20, 10, 73, 23, "", button -> {
+        }));
+
+        buttons.add(buttonSkills = new skillsButton((offsetFromScreenLeft - 73)-10, 10, 73, 23, "", button -> {
+        }));
+
+        buttons.add(buttonTreinos = new trainingButton(offsetFromScreenLeft+10, 10, 73, 23, "", button -> {
+        }));
+
+        buttons.add(buttonMaestrias = new com.kaykype.kponepiecemod.client.gui.Buttons.NavBar.buttonMaestrias(((offsetFromScreenLeft+10) + 73)+20, 10, 73, 23, "", button -> {
+        }));
+
+        //Atributos
         buttons.add(buttonStr = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop, 13, 13, "", button -> {
         }));
 
-        buttons.add(buttonDex = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 15, 13, 13, "", button -> {
+        buttons.add(buttonDex = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 20, 13, 13, "", button -> {
         }));
 
-        buttons.add(buttonCon = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 30, 13, 13, "", button -> {
+        buttons.add(buttonCon = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 40, 13, 13, "", button -> {
         }));
 
-        buttons.add(buttonSpi = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 45, 13, 13, "", button -> {
+        buttons.add(buttonSpi = new addButton(offsetFromScreenLeft - 190, offsetFromScreenTop + 60, 13, 13, "", button -> {
         }));
         buttonStr.visible = true;
 
@@ -99,26 +121,26 @@ public class GuiStats extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (buttonStr.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr()+1, playerStats.getCon(), playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr()+1, playerStats.getCon(), playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina(), playerStats.getRace(), playerStats.getCargo()));
             });
 
             return true;
         }
         if (buttonDex.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex()+1, playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex()+1, playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina(), playerStats.getRace(), playerStats.getCargo()));
             });
             return true;
         }
         if (buttonCon.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon()+1, playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon()+1, playerStats.getDex(), playerStats.getSpi(), playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina(), playerStats.getRace(), playerStats.getCargo()));
             });
             return true;
         }
         if (buttonSpi.isMouseOver(mouseX, mouseY)) {
             player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
-                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex(), playerStats.getSpi()+1, playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina()));
+                ModPacketHandler.sendToServer(new Packet(playerStats.getTp(), playerStats.getStr(), playerStats.getCon(), playerStats.getDex(), playerStats.getSpi()+1, playerStats.getLife(), playerStats.getEnergy(), playerStats.getStamina(), playerStats.getRace(), playerStats.getCargo()));
             });
             return true;
         }
@@ -133,15 +155,16 @@ public class GuiStats extends Screen {
         player.getCapability(ModSetup.STATS).ifPresent(playerStats -> {
             textStr = "STR "+ playerStats.getStr();
             textDex = "DEX "+playerStats.getDex();
-            textCon = "CON "+playerStats.getCon() ;
+            textCon = "CON "+playerStats.getCon();
             textSpi = "SPI "+playerStats.getSpi();
+            textTp = ""+playerStats.getTp();
 
             xStr = 25 + mc.font.width(textStr);
             xDex = 25 + mc.font.width(textDex);
             xCon = 25 - mc.font.width(textCon);
             xSpi = 25 - mc.font.width(textSpi);
             int offsetFromScreenLeft = width / 2;
-            xTp = offsetFromScreenLeft + (mc.font.width(textTp) / 2);
+            xTp = ((offsetFromScreenLeft - 200) - (mc.font.width(textTp)/2)) + 64;
         });
     }
 
@@ -166,25 +189,24 @@ public class GuiStats extends Screen {
         RenderSystem.disableBlend();
 
         font.drawShadow(matrixStack, textStr,
-                (offsetFromScreenLeft-150),
-                offsetFromScreenTop+5, 0xFFFFFF);
+                (offsetFromScreenLeft-170),
+                offsetFromScreenTop+6, 0xFFFFFF);
         font.drawShadow(matrixStack, textDex,
-                (offsetFromScreenLeft - 150),
-                (offsetFromScreenTop + 20), 0xFFFFFF);
+                (offsetFromScreenLeft - 170),
+                (offsetFromScreenTop + 26), 0xFFFFFF);
         font.drawShadow(matrixStack, textCon,
-                (offsetFromScreenLeft - 150),
-                (offsetFromScreenTop + 35), 0xFFFFFF);
+                (offsetFromScreenLeft - 170),
+                (offsetFromScreenTop + 46), 0xFFFFFF);
         font.drawShadow(matrixStack, textSpi,
-                (offsetFromScreenLeft - 150),
-                (offsetFromScreenTop + 50), 0xFFFFFF);
+                (offsetFromScreenLeft - 170),
+                (offsetFromScreenTop + 66), 0xFFFFFF);
         font.drawShadow(matrixStack, "Seus atributos",
                 ((offsetFromScreenLeft - 200) - (mc.font.width("Seus atributos")/2)) + 64,
                 ((offsetFromScreenTop - 115) - font.lineHeight/2) + 11, 0xFFFFFF);
-        /*
+
         font.drawShadow(matrixStack, textTpLabel,
-                (offsetFromScreenLeft),
-                (offsetFromScreenTop - 70), 0x808080);
-         */
+                ((offsetFromScreenLeft - 200) - (mc.font.width(textTpLabel)/2)) + 64,
+                (offsetFromScreenTop - 75), 0x808080);
         font.drawShadow(matrixStack, textTp,
                 xTp,
                 (offsetFromScreenTop - 60), 0xFFFFFF);
@@ -195,10 +217,10 @@ public class GuiStats extends Screen {
         playerModel.getMainModel().render(player, 0, 0, 0, 0, 0, 6f);
         */
 
-        float f1 = 90.0F / (float) player.getBoundingBox().getYsize();
+        float f1 = (90.0F / (float) player.getBoundingBox().getYsize()) * 0.7f;
 
         int l = offsetFromScreenLeft+160;
-        int i1 = offsetFromScreenTop+(int)(f1/2);
+        int i1 = offsetFromScreenTop;
 
         Minecraft mc = Minecraft.getInstance();
 
