@@ -1,0 +1,19 @@
+{
+  "abertura1_pt1": {
+    "sounds": [
+      {
+        "name": "kponepiecemod:abertura1_pt1",
+        "stream": false
+      }
+    ]
+  },
+
+  "abertura1_pt2": {
+    "sounds": [
+      {
+        "name": "kponepiecemod:abertura1_pt2",
+        "stream": false
+      }
+    ]
+  }
+}

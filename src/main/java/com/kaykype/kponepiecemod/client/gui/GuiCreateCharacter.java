@@ -1,8 +1,7 @@
 package com.kaykype.kponepiecemod.client.gui;
 
 import com.kaykype.kponepiecemod.Reference;
-import com.kaykype.kponepiecemod.capabilities.ModPacketHandler;
-import com.kaykype.kponepiecemod.capabilities.Packet;
+import com.kaykype.kponepiecemod.capabilities.*;
 import com.kaykype.kponepiecemod.client.gui.Buttons.createCharacter.attributesButton;
 import com.kaykype.kponepiecemod.client.gui.Buttons.createCharacter.skillsButton;
 import com.kaykype.kponepiecemod.client.gui.Buttons.createCharacter.doneButton;
@@ -10,6 +9,8 @@ import com.kaykype.kponepiecemod.client.gui.Buttons.createCharacter.nextButton;
 import com.kaykype.kponepiecemod.client.gui.Buttons.createCharacter.previousButton;
 import com.kaykype.kponepiecemod.client.races.RaceMetods;
 import com.kaykype.kponepiecemod.client.races.raceHandler;
+import com.kaykype.kponepiecemod.network.ModPacketHandler;
+import com.kaykype.kponepiecemod.network.PacketClient;
 import com.kaykype.kponepiecemod.utils.AttributesManagement;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -18,6 +19,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.vector.Vector3f;
@@ -29,6 +32,8 @@ import static com.kaykype.kponepiecemod.capabilities.ModSetup.STATS;
 
 public class GuiCreateCharacter extends Screen {
     private static final Minecraft mc = Minecraft.getInstance();
+
+    IPlayerStats data;
 
     String textRaceSelected;
     String textRoleSelected;
@@ -63,9 +68,11 @@ public class GuiCreateCharacter extends Screen {
 
     PlayerEntity player;
 
+    boolean entityShadows;
+
     public GuiCreateCharacter(PlayerEntity p) {
         super(new StringTextComponent("Create Character Menu"));
-        this.player = p;
+        this.player = mc.player;
 
         this.textRaceSelected = "Humano";
         this.textRoleSelected = "Pirata";
@@ -86,6 +93,16 @@ public class GuiCreateCharacter extends Screen {
         this.textDexBuffColor = new RaceMetods().getRaceByName(textRaceSelected).dexBuff() > 1 ? 0x00ff2a : new RaceMetods().getRaceByName(textRaceSelected).dexBuff() < 1 ? 0xff000d : 0x919191;
         this.textConBuffColor = new RaceMetods().getRaceByName(textRaceSelected).conBuff() > 1 ? 0x00ff2a : new RaceMetods().getRaceByName(textRaceSelected).conBuff() < 1 ? 0xff000d : 0x919191;
         this.textSpiBuffColor = new RaceMetods().getRaceByName(textRaceSelected).spiBuff() > 1 ? 0x00ff2a : new RaceMetods().getRaceByName(textRaceSelected).spiBuff() < 1 ? 0xff000d : 0x919191;
+
+        entityShadows = mc.options.entityShadows;
+
+        this.data = player.getCapability(STATS, null).orElse(new PlayerStats());
+
+        if (entityShadows == false) {
+            Minecraft mc = Minecraft.getInstance();
+            mc.options.entityShadows = true;
+            mc.options.save();
+        }
     }
 
     @Override
@@ -237,18 +254,12 @@ public class GuiCreateCharacter extends Screen {
 
         if (this.doneButton.isMouseOver(mouseX, mouseY)) {
             player.getCapability(STATS).ifPresent(playerStats -> {
-                ModPacketHandler.sendToServer(new Packet(
-                        playerStats.getTp(),
-                        playerStats.getStr(),
-                        playerStats.getCon(),
-                        playerStats.getDex(),
-                        playerStats.getSpi(),
-                        AttributesManagement.getMaxLife(10, textRaceSelected),
-                        AttributesManagement.getMaxEnergy(10, textRaceSelected),
-                        AttributesManagement.getMaxStamina(10, textRaceSelected),
-                        new RaceMetods().getRaceByName(textRaceSelected).name(),
-                        textRoleSelected
-                ));
+                data.setRace(new RaceMetods().getRaceByName(textRaceSelected).name());
+                data.setCargo(textRoleSelected);
+                data.setLife(AttributesManagement.getMaxLife(playerStats.getCon(), new RaceMetods().getRaceByName(textRaceSelected).name()));
+                data.setEnergy(AttributesManagement.getMaxEnergy(playerStats.getSpi(), new RaceMetods().getRaceByName(textRaceSelected).name()));
+                data.setStamina(AttributesManagement.getMaxStamina(playerStats.getStamina(), new RaceMetods().getRaceByName(textRaceSelected).name()));
+                ModPacketHandler.sendToServer(new PacketClient(data));
             });
 
             this.onClose();
@@ -317,6 +328,12 @@ public class GuiCreateCharacter extends Screen {
 
         EntityRendererManager renderManager = mc.getEntityRenderDispatcher();
 
+        ItemStack mainHandItem = player.getMainHandItem();
+        ItemStack offHandItem = player.getOffhandItem();
+
+        player.setItemInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+        player.setItemInHand(Hand.OFF_HAND, ItemStack.EMPTY);
+
         renderManager.render(
                 player,
                 0.0D,
@@ -330,6 +347,9 @@ public class GuiCreateCharacter extends Screen {
         );
 
         matrixStack.popPose();
+
+        player.setItemInHand(Hand.MAIN_HAND, mainHandItem);
+        player.setItemInHand(Hand.OFF_HAND, offHandItem);
 
         player.yRot = yRot;
         player.xRot = xRot;
@@ -383,6 +403,9 @@ public class GuiCreateCharacter extends Screen {
      */
     @Override
     public void onClose() {
+        Minecraft mc = Minecraft.getInstance();
+        mc.options.entityShadows = entityShadows;
+        mc.options.save();
     }
 
     @Override

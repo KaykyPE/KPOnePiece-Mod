@@ -31,7 +31,14 @@ public class ClientProxy {
 			"key.categories.kponepiecemod"
 	);
 
+	public static final KeyBinding COMBAT_MODE = new KeyBinding(
+			"key.combatmode",
+			GLFW.GLFW_KEY_APOSTROPHE,
+			"key.categories.kponepiecemod"
+	);
+
 	public static void registerKeyBindings() {
 		ClientRegistry.registerKeyBinding(STATS_BUTTON);
+		ClientRegistry.registerKeyBinding(COMBAT_MODE);
 	}
 }

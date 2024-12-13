@@ -15,6 +15,7 @@ public class PlayerStats implements IPlayerStats {
     private int staminaAtual;
     private String raça;
     private String cargo;
+    private String fruta;
 
     public PlayerStats() {
         raça = "empty";
@@ -27,6 +28,17 @@ public class PlayerStats implements IPlayerStats {
         vidaAtual = AttributesManagement.getMaxLife(10, "empty");
         energiaAtual = AttributesManagement.getMaxEnergy(10, "empty");
         staminaAtual = AttributesManagement.getMaxStamina(10, "empty");
+        fruta = "empty";
+    }
+
+    @Override
+    public String getFruta() {
+        return fruta;
+    }
+
+    @Override
+    public void setFruta(String fruta) {
+        this.fruta = fruta;
     }
 
     @Override

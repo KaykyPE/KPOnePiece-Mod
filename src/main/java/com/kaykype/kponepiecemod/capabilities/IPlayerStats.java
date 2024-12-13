@@ -15,10 +15,10 @@ public interface IPlayerStats {
     int getStamina();
     String getRace();
     String getCargo();
+    String getFruta();
 
     void setTp(int tp);
     void setStr(int str);
-
     void setCon(int con);
     void setDex(int dex);
     void setSpi(int spi);
@@ -27,4 +27,5 @@ public interface IPlayerStats {
     void setStamina(int stamina);
     void setRace(String race);
     void setCargo(String race);
+    void setFruta(String fruta);
 }

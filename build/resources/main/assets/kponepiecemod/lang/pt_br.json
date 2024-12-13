@@ -1,4 +1,7 @@
 {
   "key.statsui": "Stats UI",
-  "key.categories.kponepiecemod": "One Piece Mod"
+  "key.combatmode": "Modo Combate",
+  "key.categories.kponepiecemod": "One Piece Mod",
+  "item.kponepiecemod.gomu_gomu_no_mi": "Gomu Gomu no Mi",
+  "itemGroup.fruits_tab": "Frutas"
 }

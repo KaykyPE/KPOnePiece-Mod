@@ -86,15 +86,15 @@ Reading Input: C:\Users\playe\Documents\KPOnePiece Mod\build\libs\kponepiece_mod
 Adding input to inheritance map
 Processing entries
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/addButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
-Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/attributesButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/doneButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/attributesButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/nextButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/previousButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/skillsButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/attributesButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/buttonMaestrias/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
-Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/trainingButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/skillsButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/Buttons/NavBar/trainingButton/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/widget/button/Button/renderButton(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: renderButton -> func_230431_b_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/keyPressed(III)Z from net/minecraft/client/gui/screen/Screen/keyPressed(III)Z: keyPressed -> func_231046_a_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/isPauseScreen()Z from net/minecraft/client/gui/screen/Screen/isPauseScreen()Z: isPauseScreen -> func_231177_au__
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter/onClose()V from net/minecraft/client/gui/screen/Screen/onClose()V: onClose -> func_231175_as__
@@ -109,6 +109,8 @@ Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats/mouseClicked(DDI)Z from net/minecraft/client/gui/INestedGuiEventHandler/mouseClicked(DDI)Z: mouseClicked -> func_231044_a_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats/tick()V from net/minecraft/client/gui/screen/Screen/tick()V: tick -> func_231023_e_
 Conflicting propagated mapping for com/kaykype/kponepiecemod/client/gui/GuiStats/render(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V from net/minecraft/client/gui/screen/Screen/render(Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V: render -> func_230430_a_
+Conflicting propagated mapping for com/kaykype/kponepiecemod/client/tabs/fruitsTab$1/makeIcon()Lnet/minecraft/item/ItemStack; from net/minecraft/item/ItemGroup/makeIcon()Lnet/minecraft/item/ItemStack;: makeIcon -> func_78016_d
+Conflicting propagated mapping for net/minecraft/world/World/lambda$fillReportDetails$6()Ljava/lang/String; from net/minecraft/client/world/ClientWorld/lambda$fillReportDetails$6()Ljava/lang/String;: lambda$fillReportDetails$6 -> func_228334_x_
 Adding extras
 Sorting
 Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.jar
@@ -121,6 +123,13 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   assets/kponepiecemod/
   assets/kponepiecemod/lang/
   assets/kponepiecemod/lang/pt_br.json
+  assets/kponepiecemod/models/
+  assets/kponepiecemod/models/item/
+  assets/kponepiecemod/models/item/gomu_gomu_no_mi.json
+  assets/kponepiecemod/sounds.json
+  assets/kponepiecemod/sounds/
+  assets/kponepiecemod/sounds/abertura1_pt1.ogg
+  assets/kponepiecemod/sounds/abertura1_pt2.ogg
   assets/kponepiecemod/textures/
   assets/kponepiecemod/textures/gui/
   assets/kponepiecemod/textures/gui/button1.png
@@ -128,6 +137,8 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   assets/kponepiecemod/textures/gui/container/menu.png
   assets/kponepiecemod/textures/gui/container/menu1.png
   assets/kponepiecemod/textures/gui/icons.png
+  assets/kponepiecemod/textures/item/
+  assets/kponepiecemod/textures/item/GomuGomu.png
   com/
   com/kaykype/
   com/kaykype/kponepiecemod/
@@ -136,11 +147,8 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   com/kaykype/kponepiecemod/capabilities/
   com/kaykype/kponepiecemod/capabilities/CapManager.class
   com/kaykype/kponepiecemod/capabilities/IPlayerStats.class
-  com/kaykype/kponepiecemod/capabilities/ModPacketHandler.class
   com/kaykype/kponepiecemod/capabilities/ModSetup$1.class
   com/kaykype/kponepiecemod/capabilities/ModSetup.class
-  com/kaykype/kponepiecemod/capabilities/Packet$PacketHandler.class
-  com/kaykype/kponepiecemod/capabilities/Packet.class
   com/kaykype/kponepiecemod/capabilities/PlayerStats.class
   com/kaykype/kponepiecemod/client/
   com/kaykype/kponepiecemod/client/gui/
@@ -159,6 +167,18 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   com/kaykype/kponepiecemod/client/gui/Buttons/createCharacter/skillsButton.class
   com/kaykype/kponepiecemod/client/gui/GuiCreateCharacter.class
   com/kaykype/kponepiecemod/client/gui/GuiStats.class
+  com/kaykype/kponepiecemod/client/items/
+  com/kaykype/kponepiecemod/client/items/foodItems.class
+  com/kaykype/kponepiecemod/client/items/fruits/
+  com/kaykype/kponepiecemod/client/items/fruits/eatFruitEvent.class
+  com/kaykype/kponepiecemod/client/items/fruits/gomugomu.class
+  com/kaykype/kponepiecemod/client/items/modItems.class
+  com/kaykype/kponepiecemod/client/masteries/
+  com/kaykype/kponepiecemod/client/masteries/legCombat.class
+  com/kaykype/kponepiecemod/client/masteries/masteriesHandler.class
+  com/kaykype/kponepiecemod/client/masteries/masteriesMetods.class
+  com/kaykype/kponepiecemod/client/masteries/melee.class
+  com/kaykype/kponepiecemod/client/masteries/swordsman.class
   com/kaykype/kponepiecemod/client/races/
   com/kaykype/kponepiecemod/client/races/RaceMetods.class
   com/kaykype/kponepiecemod/client/races/fishmanRace.class
@@ -166,13 +186,21 @@ Writing Output: C:\Users\playe\Documents\KPOnePiece Mod\build\reobfJar\output.ja
   com/kaykype/kponepiecemod/client/races/humanRace.class
   com/kaykype/kponepiecemod/client/races/minkRace.class
   com/kaykype/kponepiecemod/client/races/raceHandler.class
+  com/kaykype/kponepiecemod/client/tabs/
+  com/kaykype/kponepiecemod/client/tabs/fruitsTab$1.class
+  com/kaykype/kponepiecemod/client/tabs/fruitsTab.class
   com/kaykype/kponepiecemod/events/
   com/kaykype/kponepiecemod/events/AllEvents.class
   com/kaykype/kponepiecemod/events/PlayerEvents.class
   com/kaykype/kponepiecemod/events/ServerEvents.class
+  com/kaykype/kponepiecemod/network/
+  com/kaykype/kponepiecemod/network/ModPacketHandler.class
+  com/kaykype/kponepiecemod/network/PacketClient$PacketHandler.class
+  com/kaykype/kponepiecemod/network/PacketClient.class
+  com/kaykype/kponepiecemod/network/PacketServer$PacketHandler.class
+  com/kaykype/kponepiecemod/network/PacketServer.class
   com/kaykype/kponepiecemod/proxy/
   com/kaykype/kponepiecemod/proxy/ClientProxy.class
-  com/kaykype/kponepiecemod/proxy/ServerProxy.class
   com/kaykype/kponepiecemod/utils/
   com/kaykype/kponepiecemod/utils/AttributesManagement.class
   pack.mcmeta
